@@ -1,0 +1,6 @@
+{
+  "name": "Attendance & Wage Tracker",
+  "description": "Track work attendance, hours worked, and earnings with automatic wage calculation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

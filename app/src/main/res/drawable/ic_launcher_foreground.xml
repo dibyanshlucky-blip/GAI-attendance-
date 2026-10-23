@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Emerald circle accent -->
+    <path
+        android:pathData="M54,54m-30,0a30,30 0,1 1,60 0a30,30 0,1 1,-60 0"
+        android:fillColor="#10B981" />
+    <!-- White clock face outline -->
+    <path
+        android:pathData="M54,36c-9.9,0 -18,8.1 -18,18s8.1,18 18,18 18,-8.1 18,-18 -8.1,-18 -18,-18zM54,68c-7.7,0 -14,-6.3 -14,-14s6.3,-14 14,-14 14,6.3 14,14 -6.3,14 -14,14z"
+        android:fillColor="#FFFFFF" />
+    <!-- Clock hands -->
+    <path
+        android:pathData="M52,43h4v12h-4z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M54,51h8v4h-8z"
+        android:fillColor="#FFFFFF" />
+</vector>
