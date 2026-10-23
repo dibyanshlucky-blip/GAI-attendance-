@@ -17,6 +17,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import android.content.Context
+import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -55,6 +58,7 @@ enum class DashboardViewMode {
 
 @Composable
 fun DashboardScreen(viewModel: AttendanceViewModel) {
+    val context = LocalContext.current
     val profile by viewModel.userProfile.collectAsState()
     val monthName by viewModel.selectedMonthName.collectAsState()
     val year by viewModel.selectedYear.collectAsState()
@@ -469,7 +473,70 @@ fun DashboardScreen(viewModel: AttendanceViewModel) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(14.dp))
+
+            // -------------------------------------------------------------
+            // SHARE APP ACTION CARD
+            // -------------------------------------------------------------
+            Surface(
+                onClick = { shareApp(context) },
+                shape = RoundedCornerShape(16.dp),
+                color = Color.White,
+                border = BorderStroke(1.dp, Color(0xFFDBEAFE)),
+                shadowElevation = 1.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("card_share_app")
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(40.dp)
+                                .background(Color(0xFF2563EB), RoundedCornerShape(12.dp)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = "Share",
+                                tint = Color.White,
+                                modifier = Modifier.size(19.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column {
+                            Text(
+                                text = "Share App with Friends",
+                                fontSize = 14.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF0F172A)
+                            )
+                            Text(
+                                text = "WhatsApp par doston aur workers ke sath share karein",
+                                fontSize = 11.5.sp,
+                                color = Color(0xFF64748B)
+                            )
+                        }
+                    }
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = null,
+                        tint = Color(0xFF2563EB),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
 
             // AdMob Banner Ad on Home Page
             AdMobBanner(
@@ -707,6 +774,7 @@ fun TopHeaderSection(
     onNextMonth: () -> Unit,
     onProfileClick: () -> Unit
 ) {
+    val context = LocalContext.current
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -743,81 +811,137 @@ fun TopHeaderSection(
                 )
             }
 
-            // Right: Month Navigator (< Month Year >)
-            Surface(
-                shape = RoundedCornerShape(16.dp),
-                color = Color.White,
-                border = BorderStroke(1.dp, Color(0xFFE2E8F0)),
-                shadowElevation = 1.dp
+            // Right: Share App & Month Navigator (< Month Year >)
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
+                // Share App Quick Button in Header
+                Surface(
+                    onClick = { shareApp(context) },
+                    shape = CircleShape,
+                    color = Color.White,
+                    border = BorderStroke(1.dp, Color(0xFFE2E8F0)),
+                    shadowElevation = 1.dp,
+                    modifier = Modifier
+                        .size(36.dp)
+                        .testTag("btn_header_share_app")
                 ) {
-                    IconButton(
-                        onClick = onPreviousMonth,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .background(Color(0xFFF8FAFC), CircleShape)
-                    ) {
+                    Box(contentAlignment = Alignment.Center) {
                         Icon(
-                            Icons.Default.ChevronLeft,
-                            contentDescription = "Previous Month",
-                            tint = Color(0xFF475569),
-                            modifier = Modifier.size(18.dp)
+                            imageVector = Icons.Default.Share,
+                            contentDescription = "Share App",
+                            tint = Color(0xFF2563EB),
+                            modifier = Modifier.size(17.dp)
                         )
                     }
+                }
 
-                    Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(6.dp))
 
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(horizontal = 4.dp)
+                // Month Navigator
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = Color.White,
+                    border = BorderStroke(1.dp, Color(0xFFE2E8F0)),
+                    shadowElevation = 1.dp
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = monthName,
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFF1D4ED8) // Bold Blue
+                        IconButton(
+                            onClick = onPreviousMonth,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .background(Color(0xFFF8FAFC), CircleShape)
+                        ) {
+                            Icon(
+                                Icons.Default.ChevronLeft,
+                                contentDescription = "Previous Month",
+                                tint = Color(0xFF475569),
+                                modifier = Modifier.size(18.dp)
                             )
-                            if (isMonthLocked) {
-                                Spacer(modifier = Modifier.width(3.dp))
-                                Icon(
-                                    Icons.Default.Lock,
-                                    contentDescription = "Locked",
-                                    tint = Color(0xFFEA580C),
-                                    modifier = Modifier.size(12.dp)
-                                )
-                            }
                         }
-                        Text(
-                            text = year.toString(),
-                            fontSize = 12.sp,
-                            color = Color(0xFF64748B),
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
 
-                    Spacer(modifier = Modifier.width(6.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
 
-                    IconButton(
-                        onClick = onNextMonth,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .background(Color(0xFFF8FAFC), CircleShape)
-                    ) {
-                        Icon(
-                            Icons.Default.ChevronRight,
-                            contentDescription = "Next Month",
-                            tint = Color(0xFF475569),
-                            modifier = Modifier.size(18.dp)
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(horizontal = 4.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = monthName,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF1D4ED8) // Bold Blue
+                                )
+                                if (isMonthLocked) {
+                                    Spacer(modifier = Modifier.width(3.dp))
+                                    Icon(
+                                        Icons.Default.Lock,
+                                        contentDescription = "Locked",
+                                        tint = Color(0xFFEA580C),
+                                        modifier = Modifier.size(12.dp)
+                                    )
+                                }
+                            }
+                            Text(
+                                text = year.toString(),
+                                fontSize = 12.sp,
+                                color = Color(0xFF64748B),
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        IconButton(
+                            onClick = onNextMonth,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .background(Color(0xFFF8FAFC), CircleShape)
+                        ) {
+                            Icon(
+                                Icons.Default.ChevronRight,
+                                contentDescription = "Next Month",
+                                tint = Color(0xFF475569),
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
                     }
                 }
             }
         }
     }
+}
+
+/**
+ * Universal in-app Share helper to share this app with workers, friends, and contractor groups
+ */
+fun shareApp(context: Context) {
+    val shareMessage = """
+        📲 Attendance & Daily Wage Tracker
+
+        Apne karmchariyon ki dainik Haziri (Attendance), Advance, Overtime aur Monthly Wage ka hisab aasan banayein!
+
+        ✨ Mukhya Features:
+        • 1-Click Attendance & Overtime Tracker
+        • Automatic Wage, Advance & Net Payable Hisab
+        • Professional PDF Payroll Slips direct WhatsApp par bhejein
+        • 100% Safe, Fast & Easy to use
+
+        Download karein:
+        https://play.google.com/store/apps/details?id=${context.packageName}
+    """.trimIndent()
+
+    val sendIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, shareMessage)
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, "Share Attendance App via")
+    context.startActivity(shareIntent)
 }
 
 // -------------------------------------------------------------------------
