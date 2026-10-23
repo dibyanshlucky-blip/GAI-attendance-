@@ -240,8 +240,14 @@ fun DashboardScreen(viewModel: AttendanceViewModel) {
                 .fillMaxSize()
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 10.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
+            // AdMob Banner Ad directly below Header
+            AdMobBanner(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp)
+            )
 
             // Pending Attendance Banner (shown if pending entries exist and dialogs are closed)
             if (pendingSummary.totalPendingCount > 0 && !showPendingDialog && !showAttendancePopup) {
@@ -462,6 +468,15 @@ fun DashboardScreen(viewModel: AttendanceViewModel) {
                     onClick = { currentViewMode = DashboardViewMode.PDF_REPORT }
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // AdMob Banner Ad on Home Page
+            AdMobBanner(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
         }

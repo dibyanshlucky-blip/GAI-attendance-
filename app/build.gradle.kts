@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.material)
+    implementation(libs.play.services.ads)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

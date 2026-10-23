@@ -218,6 +218,15 @@ fun PendingAttendanceDialog(
                         }
                     }
 
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // AdMob Banner inside Pending Attendance Dialog
+                    AdMobBanner(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 2.dp)
+                    )
+
                     Spacer(modifier = Modifier.height(4.dp))
                 }
             }

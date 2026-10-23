@@ -38,6 +38,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Initialize Google AdMob SDK
+        com.example.ui.AdMobManager.initialize(this)
+
         setContent {
             AttendanceWageTrackerTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {

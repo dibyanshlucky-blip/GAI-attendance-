@@ -275,6 +275,15 @@ fun MarkAttendanceDialog(
                         Text("Save Attendance", fontWeight = FontWeight.SemiBold)
                     }
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // AdMob Banner inside Mark Attendance Dialog
+                AdMobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp)
+                )
             }
         }
     }
@@ -984,6 +993,15 @@ fun SummaryDetailDialog(
                 ) {
                     Text("Done", fontWeight = FontWeight.SemiBold)
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // AdMob Banner inside Summary Detail Dialog
+                AdMobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp)
+                )
             }
         }
     }
@@ -1225,6 +1243,15 @@ fun NotesDialog(
                         }
                     }
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // AdMob Banner inside Notes Dialog
+                AdMobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp)
+                )
             }
         }
     }
@@ -1453,6 +1480,15 @@ fun SettingsDialog(
                 ) {
                     Text("Save Changes", fontWeight = FontWeight.SemiBold)
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // AdMob Banner inside Settings Dialog
+                AdMobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp)
+                )
             }
         }
     }

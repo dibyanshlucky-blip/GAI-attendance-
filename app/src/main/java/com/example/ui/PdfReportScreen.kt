@@ -1,5 +1,6 @@
 package com.example.ui
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -532,7 +533,16 @@ fun PdfReportScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // AdMob Banner Ad (matching reference screenshot layout)
+                AdMobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
 
                 // 3. Generate Report Preview Button
                 Box(
@@ -548,7 +558,16 @@ fun PdfReportScreen(
                                 )
                             )
                         )
-                        .clickable { viewMode = ReportViewMode.PREVIEW }
+                        .clickable {
+                            val activity = context as? Activity
+                            if (activity != null) {
+                                AdMobManager.showInterstitial(activity) {
+                                    viewMode = ReportViewMode.PREVIEW
+                                }
+                            } else {
+                                viewMode = ReportViewMode.PREVIEW
+                            }
+                        }
                         .testTag("btn_generate_report_preview"),
                     contentAlignment = Alignment.Center
                 ) {
@@ -956,7 +975,16 @@ fun PdfReportScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // AdMob Banner Ad in Preview Mode
+                AdMobBanner(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
 
                 // Footer (Matching Screenshot 3)
                 Column(

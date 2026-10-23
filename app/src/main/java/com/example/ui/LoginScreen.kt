@@ -642,7 +642,16 @@ fun LoginScreen(viewModel: AttendanceViewModel) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(18.dp))
+
+            // AdMob Banner on Login Screen
+            AdMobBanner(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
+
+            Spacer(modifier = Modifier.height(18.dp))
 
             // -------------------------------------------------------------
             // FOOTER & SECURITY BADGE

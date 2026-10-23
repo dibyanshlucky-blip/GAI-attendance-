@@ -145,8 +145,15 @@ fun MonthlyAttendanceViewScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 14.dp)
+                .padding(horizontal = 16.dp, vertical = 10.dp)
         ) {
+            // AdMob Banner Ad directly below Header
+            AdMobBanner(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp)
+            )
+
             // 2. MONTHLY ATTENDANCE CALENDAR CARD
             MonthlyCalendarCard(
                 monthName = monthName,

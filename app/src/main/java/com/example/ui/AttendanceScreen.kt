@@ -849,6 +849,15 @@ fun AttendancePopupDialog(
                                 color = Color(0xFF2563EB)
                             )
                         }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // AdMob Banner inside Attendance Dialog
+                        AdMobBanner(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 2.dp)
+                        )
                     }
                 }
             }

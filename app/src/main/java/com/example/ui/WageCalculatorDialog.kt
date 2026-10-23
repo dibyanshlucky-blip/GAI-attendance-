@@ -1,5 +1,6 @@
 package com.example.ui
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color as AndroidColor
@@ -730,7 +731,16 @@ fun WageCalculatorDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(14.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // AdMob Banner inside Wage Calculator
+                    AdMobBanner(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // -------------------------------------------------------------
                     // 7. GENERATE REPORT BUTTON (Cyan-to-blue gradient)
