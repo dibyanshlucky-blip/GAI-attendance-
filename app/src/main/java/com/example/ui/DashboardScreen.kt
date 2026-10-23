@@ -49,7 +49,8 @@ enum class ActiveDialog {
 enum class DashboardViewMode {
     DASHBOARD,
     MONTHLY_VIEW,
-    ADVANCE
+    ADVANCE,
+    PDF_REPORT
 }
 
 @Composable
@@ -154,6 +155,32 @@ fun DashboardScreen(viewModel: AttendanceViewModel) {
                     2 -> activeDialog = ActiveDialog.LOCK_CONFIRMATION
                     3 -> {
                         // Already on Advance
+                    }
+                    4 -> activeDialog = ActiveDialog.WAGE_CALCULATOR
+                }
+            }
+        )
+    } else if (currentViewMode == DashboardViewMode.PDF_REPORT) {
+        PdfReportScreen(
+            viewModel = viewModel,
+            onNavigateBack = {
+                currentViewMode = DashboardViewMode.DASHBOARD
+                activeBottomTab = 0
+            },
+            onNavigateTab = { index ->
+                when (index) {
+                    0 -> {
+                        currentViewMode = DashboardViewMode.DASHBOARD
+                        activeBottomTab = 0
+                    }
+                    1 -> {
+                        currentViewMode = DashboardViewMode.MONTHLY_VIEW
+                        activeBottomTab = 1
+                    }
+                    2 -> activeDialog = ActiveDialog.LOCK_CONFIRMATION
+                    3 -> {
+                        currentViewMode = DashboardViewMode.ADVANCE
+                        activeBottomTab = 3
                     }
                     4 -> activeDialog = ActiveDialog.WAGE_CALCULATOR
                 }
@@ -432,7 +459,7 @@ fun DashboardScreen(viewModel: AttendanceViewModel) {
                     subtitle = "Monthly or Custom",
                     modifier = Modifier.weight(1f),
                     testTag = "card_pdf_report",
-                    onClick = { activeDialog = ActiveDialog.PDF_REPORT }
+                    onClick = { currentViewMode = DashboardViewMode.PDF_REPORT }
                 )
             }
 
@@ -592,16 +619,8 @@ fun DashboardScreen(viewModel: AttendanceViewModel) {
         }
 
         ActiveDialog.PDF_REPORT -> {
-            PdfReportDialog(
-                profile = profile,
-                monthName = monthName,
-                year = year,
-                workedDays = workedDays,
-                totalWage = totalWage,
-                totalAdvance = totalAdvance,
-                netPayable = netPayable,
-                onDismiss = { activeDialog = ActiveDialog.NONE }
-            )
+            activeDialog = ActiveDialog.NONE
+            currentViewMode = DashboardViewMode.PDF_REPORT
         }
 
         ActiveDialog.LOCK_CONFIRMATION -> {
